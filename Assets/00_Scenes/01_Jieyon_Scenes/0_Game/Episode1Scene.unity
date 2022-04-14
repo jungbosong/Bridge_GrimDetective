@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 27988819}
   - component: {fileID: 27988818}
   - component: {fileID: 27988817}
+  - component: {fileID: 27988821}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Untagged
@@ -173,9 +174,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 27988815}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7377d58a5ff69b9408a14131ae2202b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3507321b4f4d5ea4a8b5cf5eb590c3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReasoningButtonId: 2
 --- !u!114 &27988818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,8 +223,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 27988817}
-        m_TargetAssemblyTypeName: ReasoningButton, Assembly-CSharp
-        m_MethodName: TempReasoningChoice
+        m_TargetAssemblyTypeName: ReasoningButtonData, Assembly-CSharp
+        m_MethodName: ClickReasoningButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -231,6 +233,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1546281480056173048}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 27988821}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: ShowOpinionPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &27988819
 MonoBehaviour:
@@ -270,6 +296,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27988815}
   m_CullTransparentMesh: 1
+--- !u!114 &27988821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27988815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 1546281479131797546}
 --- !u!1 &36218269
 GameObject:
   m_ObjectHideFlags: 0
@@ -5082,7 +5122,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1546281480940520201}
         m_TargetAssemblyTypeName: MysteryNote, Assembly-CSharp
-        m_MethodName: StartReasoning
+        m_MethodName: StartTrialChoice
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5907,6 +5947,7 @@ GameObject:
   - component: {fileID: 1550696054}
   - component: {fileID: 1550696053}
   - component: {fileID: 1550696052}
+  - component: {fileID: 1550696056}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -5944,9 +5985,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1550696050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7377d58a5ff69b9408a14131ae2202b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3507321b4f4d5ea4a8b5cf5eb590c3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReasoningButtonId: 1
 --- !u!114 &1550696053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5992,8 +6034,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1550696052}
-        m_TargetAssemblyTypeName: ReasoningButton, Assembly-CSharp
-        m_MethodName: TempReasoningChoice
+        m_TargetAssemblyTypeName: ReasoningButtonData, Assembly-CSharp
+        m_MethodName: ClickReasoningButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6002,6 +6044,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1546281480056173048}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1550696056}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: ShowOpinionPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1550696054
 MonoBehaviour:
@@ -6041,6 +6107,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550696050}
   m_CullTransparentMesh: 1
+--- !u!114 &1550696056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550696050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 1546281479131797546}
 --- !u!1 &1567444732
 GameObject:
   m_ObjectHideFlags: 0
@@ -6333,6 +6413,7 @@ GameObject:
   - component: {fileID: 1595800995}
   - component: {fileID: 1595800994}
   - component: {fileID: 1595800993}
+  - component: {fileID: 1595800997}
   m_Layer: 5
   m_Name: Button (3)
   m_TagString: Untagged
@@ -6370,9 +6451,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1595800991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7377d58a5ff69b9408a14131ae2202b9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3507321b4f4d5ea4a8b5cf5eb590c3a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ReasoningButtonId: 3
 --- !u!114 &1595800994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6418,8 +6500,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1595800993}
-        m_TargetAssemblyTypeName: ReasoningButton, Assembly-CSharp
-        m_MethodName: TempReasoningChoice
+        m_TargetAssemblyTypeName: ReasoningButtonData, Assembly-CSharp
+        m_MethodName: ClickReasoningButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6428,6 +6510,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1546281480056173048}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1595800997}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: ShowOpinionPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1595800995
 MonoBehaviour:
@@ -6467,6 +6573,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1595800991}
   m_CullTransparentMesh: 1
+--- !u!114 &1595800997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595800991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 1546281479131797546}
 --- !u!1 &1605486806
 GameObject:
   m_ObjectHideFlags: 0
@@ -9387,7 +9507,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1546281479324388263}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: OnClickedConvictionBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1546281480056173048}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -9398,18 +9530,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1546281480278726997}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
         m_CallState: 2
 --- !u!224 &1546281479324388257
 RectTransform:
@@ -9481,6 +9601,7 @@ GameObject:
   - component: {fileID: 1546281479324388258}
   - component: {fileID: 1546281479324388259}
   - component: {fileID: 1546281479324388256}
+  - component: {fileID: 1546281479324388263}
   m_Layer: 5
   m_Name: "\uC120\uD0DDButton"
   m_TagString: Untagged
@@ -9488,6 +9609,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1546281479324388263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546281479324388262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 0}
 --- !u!114 &1546281479553615656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11325,6 +11460,7 @@ GameObject:
   - component: {fileID: 1546281480711134920}
   - component: {fileID: 1546281480711134921}
   - component: {fileID: 1546281480711134926}
+  - component: {fileID: 1546281480711134925}
   m_Layer: 5
   m_Name: "\uCDE8\uC18CButton"
   m_TagString: Untagged
@@ -11332,6 +11468,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1546281480711134925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546281480711134924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 0}
 --- !u!114 &1546281480711134926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11376,10 +11526,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1546281480056173048}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1546281480711134925}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: OnClickedHoldBtn
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11388,10 +11538,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ReasoningButton, Assembly-CSharp
-        m_MethodName: InitMysteryNote
-        m_Mode: 1
+      - m_Target: {fileID: 1546281480056173048}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11533,7 +11683,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e7bdff93cb25d4793bed210cb96cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonNameData:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  SelectedButtonExplanationData:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   clickedeasoningTapId: 0
+  clickedeasoningButtonId: 0
+  data:
+  - 
+  - 
+  - 
 --- !u!114 &1546281480940520202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11584,6 +11765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReasoningInventoryPopup: {fileID: 1546281479555843496}
+  OpinionPopup: {fileID: 1546281480056173048}
   ClueText: {fileID: 1546281480595281818}
   ButtonText1: {fileID: 3174522817262114069}
   ButtonText2: {fileID: 1054876044}
@@ -11601,7 +11783,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e7bdff93cb25d4793bed210cb96cf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonNameData:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  SelectedButtonExplanationData:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   clickedeasoningTapId: 0
+  clickedeasoningButtonId: 0
+  data:
+  - 
+  - 
+  - 
 --- !u!223 &1546281480940520308
 Canvas:
   m_ObjectHideFlags: 0
@@ -11786,18 +11999,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3174522816220916027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174522816220916028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7377d58a5ff69b9408a14131ae2202b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3174522816220916028
 GameObject:
   m_ObjectHideFlags: 0
@@ -11810,7 +12011,8 @@ GameObject:
   - component: {fileID: 3174522816220916024}
   - component: {fileID: 3174522816220916025}
   - component: {fileID: 3174522816220916030}
-  - component: {fileID: 3174522816220916027}
+  - component: {fileID: 3174522816220916029}
+  - component: {fileID: 3174522816220916032}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -11818,6 +12020,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &3174522816220916029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174522816220916028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3507321b4f4d5ea4a8b5cf5eb590c3a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReasoningButtonId: 0
 --- !u!114 &3174522816220916030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11862,9 +12077,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3174522816220916027}
-        m_TargetAssemblyTypeName: ReasoningButton, Assembly-CSharp
-        m_MethodName: TempReasoningChoice
+      - m_Target: {fileID: 3174522816220916029}
+        m_TargetAssemblyTypeName: ReasoningButtonData, Assembly-CSharp
+        m_MethodName: ClickReasoningButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11873,6 +12088,30 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1546281480056173048}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 3174522816220916032}
+        m_TargetAssemblyTypeName: ReasoningButtonManager, Assembly-CSharp
+        m_MethodName: ShowOpinionPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!224 &3174522816220916031
 RectTransform:
@@ -11895,6 +12134,20 @@ RectTransform:
   m_AnchoredPosition: {x: 217.5, y: -295}
   m_SizeDelta: {x: 335, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3174522816220916032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174522816220916028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92290ea783233f244a3e075a0895e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OpinionPopup: {fileID: 0}
+  OpinionText: {fileID: 1546281479131797546}
 --- !u!222 &3174522816535977240
 CanvasRenderer:
   m_ObjectHideFlags: 0

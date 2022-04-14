@@ -7,6 +7,5 @@ public class ReasoningTapData : MonoBehaviour
     public int ReasoningTapId;
     public void ClickReasoningTap(){
         MysteryNote.Instance.clickedeasoningTapId=ReasoningTapId;
-        Debug.Log(MysteryNote.Instance.clickedeasoningTapId+"번 추리탭 클릭");
     }
 }

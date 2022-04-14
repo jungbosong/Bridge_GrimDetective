@@ -20,11 +20,11 @@ public class TrialllMnger : MonoBehaviour
         }
     }
     int decidedCandidateCnt = 0; // 결정한 후보 개수
-    Dictionary<string, int> selectedCombination = new Dictionary<string, int>(){ 
+    public Dictionary<int, int> selectedCombination = new Dictionary<int, int>(){ 
         // 플레이어가 선택한 추리 조합
-        /*{"범인", 0};
-        {"흉기", 4};
-        {"동기", 8};*/
+        {0,-1},
+        {1,-1},
+        {2,-1}
     }; 
     public void UpDecidedCandidateCnt()
     {
@@ -38,14 +38,13 @@ public class TrialllMnger : MonoBehaviour
             return;
         } else decidedCandidateCnt--;
     }
-    public void SetSelectedCombination(string selectedClueType, int selectedClueNum)
-    {
-        selectedCombination[selectedClueType] = selectedClueNum;
+    public void CheckCombinationCompleted(){
+        if(decidedCandidateCnt>=3) Debug.Log("조합이 완성되었습니다.");
     }
-    /*public int GetSelectedCombination(string clueType)
+    public int GetSelectedCombination(int clueType)
     {
         int clueNum;
-        if(selectedCombination.TryGetValue(clueType, out clueNum))
-            return clueNum;
-    }*/
+        if(selectedCombination.TryGetValue(clueType, out clueNum)) return clueNum;
+        else return 0;
+    }
 }

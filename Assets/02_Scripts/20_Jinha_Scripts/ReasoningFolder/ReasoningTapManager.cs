@@ -7,6 +7,7 @@ public class ReasoningTapManager : MonoBehaviour
 {
     ReasoningTapData ReasoningTapData;
     public GameObject ReasoningInventoryPopup;
+    public GameObject OpinionPopup;
     public GameObject ClueText;
     public Text ButtonText1;
     public Text ButtonText2;
@@ -23,8 +24,6 @@ public class ReasoningTapManager : MonoBehaviour
             }
 	    }
     }
-
-    //지명하기 버튼을 누르면 실행
     public void OnClicedkNominateBtn()
     {
         ShowMysteryNotePanel();
@@ -40,19 +39,32 @@ public class ReasoningTapManager : MonoBehaviour
         // "범인은 누구일까?"등등 출력
         switch(MysteryNote.Instance.clickedeasoningTapId)
         {
-            case 0: ClueText.GetComponent<Text>().text="범인은 누굴까?";Debug.Log("범인Tap Click");break;
-            case 1: ClueText.GetComponent<Text>().text="흉기는 무엇일까?";Debug.Log("흉기Tap Click");break;
-            case 2: ClueText.GetComponent<Text>().text="동기는 무엇일까?";Debug.Log("동기Tap Click");break;
+            case 0: ClickSuspectTap();break;
+            case 1: ClickWeaponTap();break;
+            case 2: ClickMotiveTap();break;
             default: ClueText.GetComponent<Text>().text="범인은? 흉기는? 동기는?";break;
         }
-        // 버튼 이름, 이미지 설정
-        ButtonText1.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[0][MysteryNote.Instance.clickedeasoningTapId];
-        Debug.Log(MysteryNote.Instance.ButtonNameData[0][MysteryNote.Instance.clickedeasoningTapId]);
-        ButtonText2.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[1][MysteryNote.Instance.clickedeasoningTapId];
-        Debug.Log(MysteryNote.Instance.ButtonNameData[1][MysteryNote.Instance.clickedeasoningTapId]);
-        ButtonText3.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[2][MysteryNote.Instance.clickedeasoningTapId];
-        Debug.Log(MysteryNote.Instance.ButtonNameData[2][MysteryNote.Instance.clickedeasoningTapId]);
-        ButtonText4.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[3][MysteryNote.Instance.clickedeasoningTapId];
-        Debug.Log(MysteryNote.Instance.ButtonNameData[3][MysteryNote.Instance.clickedeasoningTapId]);
+        OpinionPopup.SetActive(false);
+    }
+    public void ClickSuspectTap(){
+        ClueText.GetComponent<Text>().text="범인은 누굴까?";
+        ButtonText1.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[0];
+        ButtonText2.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[1];
+        ButtonText3.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[2];
+        ButtonText4.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[3];
+    }
+    public void ClickWeaponTap(){
+        ClueText.GetComponent<Text>().text="흉기는 무엇일까?";
+        ButtonText1.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[4];
+        ButtonText2.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[5];
+        ButtonText3.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[6];
+        ButtonText4.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[7];
+    }
+    public void ClickMotiveTap(){
+        ClueText.GetComponent<Text>().text="동기는 무엇일까?";
+        ButtonText1.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[8];
+        ButtonText2.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[9];
+        ButtonText3.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[10];
+        ButtonText4.GetComponent<Text>().text=MysteryNote.Instance.ButtonNameData[11];
     }
 }
