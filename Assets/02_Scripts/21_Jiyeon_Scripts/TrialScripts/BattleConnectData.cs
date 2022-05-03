@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 
 public class BattleConnectData : MonoBehaviour
 {
-    public string battleDBAdress = "https://docs.google.com/spreadsheets/d/1f80PNut0CeaJHCDIuZUyTsneKhBrZGmXk9PDZ2_R71Q";
+    [SerializeField] TrialMng trialMng;
+    public string battleDBAddress = "https://docs.google.com/spreadsheets/d/1f80PNut0CeaJHCDIuZUyTsneKhBrZGmXk9PDZ2_R71Q";
     public Dictionary<string, string> battleSheetNum = new Dictionary<string, string>();
     /* 엔딩분류별 재판질문 시트번호
     030 - 345101118
@@ -25,17 +26,21 @@ public class BattleConnectData : MonoBehaviour
 
     void Awake()
     {
+        battleSheetNum.Add("030", "345101118");
         battleSheetNum.Add("111", "254121563");
         battleSheetNum.Add("121", "1458266636");
         battleSheetNum.Add("202", "1773751119");
         battleSheetNum.Add("211", "2052236787");
-        battleSheetNum.Add("030", "345101118");
+        trialMng.GetComponent<TrialMng>();
     }
 
     public void OnclickTestButton()
     {
-        //TODO combination값을 받아서 콜하도록 변경해야함
-        StartCoroutine(BattleDialogNetConnect("111"));
+        int weapon = trialMng.weapon % 4;
+        int motive = trialMng.motive % 4;
+        string combination  = trialMng.suspect.ToString() + weapon.ToString() + motive.ToString();
+        
+        StartCoroutine(BattleDialogNetConnect(combination));
     }
 
     // 대화록 출력 관련 함수
@@ -43,7 +48,7 @@ public class BattleConnectData : MonoBehaviour
     {      
         string sheetNum = "";
         battleSheetNum.TryGetValue(combination, out sheetNum);
-        string URL = battleDBAdress + "/export?format=tsv&gid=" + sheetNum + "&range=" + battleRange;
+        string URL = battleDBAddress + "/export?format=tsv&gid=" + sheetNum + "&range=" + battleRange;
 
         UnityWebRequest www = UnityWebRequest.Get(URL);
         yield return www.SendWebRequest();
@@ -71,12 +76,10 @@ public class BattleConnectData : MonoBehaviour
             string num = line.Split('\t')[0];
             
             if(num == "QC") {
-                Debug.Log("QC당");
                 count++;
                 questionData.Add(line + "\n");
             }
             if (num == "QP") {
-                Debug.Log("QP당");
                 count++;
                 questionData.Add(line + "\n");
             } else {

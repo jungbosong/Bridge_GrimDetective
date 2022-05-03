@@ -10,9 +10,8 @@ public class TrialMng : MonoBehaviour
     int battleCnt = 0;  // 공방 수
     int endingType = 0; // 엔딩 종류
 
-    [SerializeField]
-    int suspect, weapon, motive;     // 테스트용 범인, 흉기, 동기번호
-
+    [SerializeField]  // 테스트용 범인, 흉기, 동기번호
+    public int suspect, weapon, motive;
     EndingType endingTypeResult = EndingType.BEST;  // 엔딩 종류 결과
 
     void Start()

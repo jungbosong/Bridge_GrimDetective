@@ -348,9 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040be893018ebc246b0663b0abfb1e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  suspect: 2
-  weapon: 5
-  motive: 10
+  suspect: 0
+  weapon: 7
+  motive: 8
 --- !u!114 &122269278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &683109085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -666,7 +666,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 324}
   m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &683109086
@@ -1040,6 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a70ec54a475f14a9be675cef8a2088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trialMng: {fileID: 122269277}
   battleDBAdress: https://docs.google.com/spreadsheets/d/1f80PNut0CeaJHCDIuZUyTsneKhBrZGmXk9PDZ2_R71Q
   battleRange: D3:E
   questionData: []
@@ -1127,7 +1128,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\uACF5\uBC29\uC2DC\uC791"
 --- !u!222 &1408759127
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1479,7 +1480,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: "\uBC30\uC2EC\uC6D0\uC120\uCD94\uB9AC\uACB0\uACFC"
 --- !u!222 &1658147047
 CanvasRenderer:
   m_ObjectHideFlags: 0
