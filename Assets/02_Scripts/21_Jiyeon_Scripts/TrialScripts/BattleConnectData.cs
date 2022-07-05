@@ -23,7 +23,26 @@ public class BattleConnectData : MonoBehaviour
     public string battleRange = "D3:E";
     public List<string> questionData = new List<string>();
 
+    private static BattleConnectData instance = null;
+    string combination;
 
+    //싱글톤 제작함수
+    public static BattleConnectData Instance {
+        get{
+            if(instance == null){
+                var obj = FindObjectOfType<BattleConnectData>();
+                if(obj != null) {
+                    instance = obj;
+                } else {
+                    var newObj = new GameObject().AddComponent<BattleConnectData>();
+                    instance = newObj;
+                }
+            }
+            return instance;
+        }
+    }
+
+        
     void Awake()
     {
         battleSheetNum.Add("030", "345101118");
@@ -32,15 +51,31 @@ public class BattleConnectData : MonoBehaviour
         battleSheetNum.Add("202", "1773751119");
         battleSheetNum.Add("211", "2052236787");
         trialMng.GetComponent<TrialMng>();
+
+        var objs = FindObjectsOfType<BattleConnectData>();
+        if(objs.Length != 1) {
+            Debug.Log("BattleConnectData 여러개 찾음");
+            Debug.Log(gameObject.name);
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        Debug.Log(gameObject.name);
+    }
+
+    // 코루틴 연결 시작하는 함수
+    public void StartDialogNetConnect()
+    {
+        BattleManager.Instance.runningCorutine = StartCoroutine(BattleDialogNetConnect(combination));
     }
 
     public void OnclickTestButton()
     {
         int weapon = trialMng.weapon % 4;
         int motive = trialMng.motive % 4;
-        string combination  = trialMng.suspect.ToString() + weapon.ToString() + motive.ToString();
-        
-        StartCoroutine(BattleDialogNetConnect(combination));
+        combination  = trialMng.suspect.ToString() + weapon.ToString() + motive.ToString();
+        StartDialogNetConnect();
+        //tartCoroutine(BattleDialogNetConnect(combination));
     }
 
     // 대화록 출력 관련 함수
@@ -79,7 +114,7 @@ public class BattleConnectData : MonoBehaviour
                 count++;
                 questionData.Add(line + "\n");
             }
-            if (num == "QP") {
+            else if (num == "QP") {
                 count++;
                 questionData.Add(line + "\n");
             } else {
@@ -92,6 +127,12 @@ public class BattleConnectData : MonoBehaviour
             Debug.Log(i);
             Debug.Log(questionData[i]);
         }
+        Debug.Log(BattleManager.Instance.nowQuestionData.Count);
+    }
+
+    public List<string> GetQuestionData()
+    {
+        return questionData;
     }
 
 }

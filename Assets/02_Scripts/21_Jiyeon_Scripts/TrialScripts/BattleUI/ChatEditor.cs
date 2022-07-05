@@ -6,6 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(BattleManager))]
 public class ChatEditor : Editor
 {
+    /*
     BattleManager battleManager;
     string text;
 
@@ -37,4 +38,5 @@ public class ChatEditor : Editor
 
         EditorGUILayout.EndHorizontal();
     }
+    */
 }
