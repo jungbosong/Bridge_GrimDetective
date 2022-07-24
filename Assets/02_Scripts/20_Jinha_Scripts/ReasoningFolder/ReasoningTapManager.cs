@@ -5,16 +5,18 @@ using UnityEngine.UI;
 
 public class ReasoningTapManager : MonoBehaviour
 {
-    ReasoningTapData ReasoningTapData;
-    public GameObject ReasoningInventoryPopup;
+    MysteryNote MysteryNote;
+
     public GameObject OpinionPopup;
     public GameObject ClueText;
     public Text ButtonText1;
     public Text ButtonText2;
     public Text ButtonText3;
     public Text ButtonText4;
+
     void Awake(){
-        ReasoningTapData = this.GetComponent<ReasoningTapData>();
+        MysteryNote = this.GetComponent<MysteryNote>();
+
     }
     private void InitSurveyRecords()
     {
@@ -24,20 +26,14 @@ public class ReasoningTapManager : MonoBehaviour
             }
 	    }
     }
-    public void OnClicedkNominateBtn()
-    {
-        ShowMysteryNotePanel();
-    }
-    public void ShowMysteryNotePanel()
-    {
-        ReasoningInventoryPopup.SetActive(true);
-    }
 
     //범인/흉기/동기 탭 누르면 실행
-    public void OnClickedTap()
+    public void OnClickedTap(int clickedTapId)
     {
+        MysteryNote.Instance.tmpTapButtonId[0]=clickedTapId;
+        Debug.Log(clickedTapId+"번째 탭을 선택하였습니다.");
         // "범인은 누구일까?"등등 출력
-        switch(MysteryNote.Instance.clickedeasoningTapId)
+        switch(clickedTapId)
         {
             case 0: ClickSuspectTap();break;
             case 1: ClickWeaponTap();break;

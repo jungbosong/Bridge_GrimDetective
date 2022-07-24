@@ -38,8 +38,9 @@ public class TrialllMnger : MonoBehaviour
             return;
         } else decidedCandidateCnt--;
     }
-    public void CheckCombinationCompleted(){
+    public void CheckCombinationCompleted(GameObject MysteryNoteCompletePanel){
         if(decidedCandidateCnt>=3) Debug.Log("조합이 완성되었습니다.");
+        if(decidedCandidateCnt>=3) MysteryNoteCompletePanel.SetActive(true);
     }
     public int GetSelectedCombination(int clueType)
     {
