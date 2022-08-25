@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/00_Scenes/01_Jieyon_Scenes/URLTestScene.unity
     guid: 4778c67f89ddbcb44845b4f88cf47498
+  - enabled: 0
+    path: Assets/00_Scenes/01_Jieyon_Scenes/0_Game/MakeTxtFileScene.unity
+    guid: a6a17726b2f382546966f2ed84845a6c
   m_configObjects: {}
