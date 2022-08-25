@@ -6,14 +6,14 @@ using System.IO;
 
 public class TxtFileMaker : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     string DBAddress = "https://docs.google.com/spreadsheets/d/1f80PNut0CeaJHCDIuZUyTsneKhBrZGmXk9PDZ2_R71Q";
-    [SerializeField]
+    //[SerializeField]
     string sheetNum = "478020856";
-    [SerializeField]
-    string range = "C3:E"; // 테스트로 재판입장 데이터만 불러옴
-    [SerializeField]
-    string fileName = "BasicConveration";
+    //[SerializeField]
+    string range = "C15:E20"; // 테스트로 재판입장 데이터만 불러옴
+    //[SerializeField]
+    string fileName = "Prejudgment";
 
     void Start()
     {
@@ -23,8 +23,8 @@ public class TxtFileMaker : MonoBehaviour
     // ANCHOR 구글 docs에서 데이터 읽기
     IEnumerator TrialDialogNetConnect() 
     {      
-        string sheetNum = "";
         string URL = DBAddress + "/export?format=tsv&gid=" + sheetNum + "&range=" + range;
+        Debug.Log(URL);
 
         UnityWebRequest www = UnityWebRequest.Get(URL);
         yield return www.SendWebRequest();
