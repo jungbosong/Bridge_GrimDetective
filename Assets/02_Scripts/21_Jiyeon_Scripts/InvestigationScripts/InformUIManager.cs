@@ -65,15 +65,15 @@ public class InformUIManager : MonoBehaviour
 
         Vector2 mousePosition;
         float[] outsidePopupArea = {
-            298f,     // 왼쪽 영역
-            1133f,     // 오른쪽 영역
-            2064f,     // 위
-            541f      // 아래
+            0.09f,     // 왼쪽 영역
+            0.9f,     // 오른쪽 영역
+            0.8f,     // 위
+            0.2f      // 아래
         };
         
         if((Input.GetMouseButtonDown(0))){
             mousePosition = Input.mousePosition;
-            if(mousePosition.x <= outsidePopupArea[0] || mousePosition.x >= outsidePopupArea[1] || mousePosition.y >= outsidePopupArea[2] || mousePosition.y <= outsidePopupArea[3])
+            if(mousePosition.x <= Screen.width*outsidePopupArea[0] || mousePosition.x >= Screen.width*outsidePopupArea[1] || mousePosition.y >= Screen.height*outsidePopupArea[2] || mousePosition.y <= Screen.height*outsidePopupArea[3])
             {
                 popup.SetActive(false);
                 inventoryCanvas.blocksRaycasts = true;
