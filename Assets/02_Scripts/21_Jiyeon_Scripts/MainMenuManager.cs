@@ -15,7 +15,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickedContinue()
     {
-        SceneManager.LoadScene("EpisodeScene");
+        SceneManager.LoadScene("Episode1Scene_Jiyeon");
     }
 
     public void OnClickedEpisodeChoose()

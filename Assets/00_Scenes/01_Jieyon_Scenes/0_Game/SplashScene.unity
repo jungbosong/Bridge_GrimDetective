@@ -372,6 +372,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.9115984
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.88251954
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.093
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.4876242
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498368366256573842, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7498368367764672197, guid: fee92c6aa560ebb4d81e120843058464, type: 3}
       propertyPath: m_Name
       value: Splash Canvas
