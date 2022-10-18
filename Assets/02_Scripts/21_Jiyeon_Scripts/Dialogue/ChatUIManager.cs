@@ -224,6 +224,7 @@ public class ChatUIManager : MonoBehaviour
     public Sprite Character1;
     public Sprite Character2;
     public Sprite Character3;
+    
     public void ChatCharacterSprite(int characterID){
         if(characterID==0) CharacterSprite.GetComponent<Image>().sprite = Character0;
         if(characterID==1) CharacterSprite.GetComponent<Image>().sprite = Character1;

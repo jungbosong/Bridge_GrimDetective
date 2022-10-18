@@ -15,7 +15,7 @@ public class ChatData : MonoBehaviour
 {
     private static ChatData instance = null;
     // 대화록 링크
-    public string dialogueDBLink = "https://docs.google.com/spreadsheets/d/1jJdHJTK4TMo6zjty4K6NLCMYymjh-4nM";
+    public string dialogueDBLink;
     // DB연결에 필요한 데이터들
     public List<List<RequiredData>> requiredDatas = new List<List<RequiredData>>();
     
@@ -37,15 +37,6 @@ public class ChatData : MonoBehaviour
 
     private void Awake() 
     {
-        /* 데이터확인용 디버그
-        for(int i =0; i<requiredDatas.Count; i++) {
-            for(int j = 0; j<requiredDatas[i].Count; j++){
-                Debug.Log(requiredDatas[i][j].choiceNum);
-                Debug.Log(requiredDatas[i][j].choiceTitle);
-                Debug.Log(requiredDatas[i][j].sheetNum);
-                Debug.Log(requiredDatas[i][j].range);
-            }
-        } */
         var objs = FindObjectsOfType<ChatData>();
         if(objs.Length != 1) {
             Debug.Log("ChatData 여러개 찾음");
@@ -85,11 +76,6 @@ public class ChatData : MonoBehaviour
         requiredDatas[3].Add(new RequiredData(){choiceNum = 2, choiceTitle = "깔끔", sheetNum = "1909111278", range = "B2:C18"});
        
     }
-
-
-
-
-
 
 
 }

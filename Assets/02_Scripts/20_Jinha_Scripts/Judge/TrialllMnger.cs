@@ -19,6 +19,10 @@ public class TrialllMnger : MonoBehaviour
             return instance;
         }
     }
+    public GameObject NominateButton;
+    public GameObject CompleteMysteryNote;
+    public GameObject MysteryNoteCompletePanel;
+    public GameObject MysteryNotePanel;
     int decidedCandidateCnt = 0; // 결정한 후보 개수
     public Dictionary<int, int> selectedCombination = new Dictionary<int, int>(){ 
         // 플레이어가 선택한 추리 조합
@@ -39,13 +43,21 @@ public class TrialllMnger : MonoBehaviour
         } else decidedCandidateCnt--;
     }
     public void CheckCombinationCompleted(GameObject MysteryNoteCompletePanel){
-        if(decidedCandidateCnt>=3) Debug.Log("조합이 완성되었습니다.");
-        if(decidedCandidateCnt>=3) MysteryNoteCompletePanel.SetActive(true);
+        if(decidedCandidateCnt>=3) {
+            Debug.Log("조합이 완성되었습니다.");
+            MysteryNotePanel.SetActive(false);
+            NominateButton.SetActive(false);
+            CompleteMysteryNote.SetActive(true);
+        }
     }
     public int GetSelectedCombination(int clueType)
     {
         int clueNum;
         if(selectedCombination.TryGetValue(clueType, out clueNum)) return clueNum;
         else return 0;
+    }
+
+    public void ShowCompleteMysteryNotePanel(){
+        MysteryNoteCompletePanel.SetActive(true);
     }
 }

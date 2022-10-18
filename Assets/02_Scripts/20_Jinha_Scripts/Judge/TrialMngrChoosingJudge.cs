@@ -10,6 +10,7 @@ public class TrialMngrChoosingJudge : MonoBehaviour
 
     public GameObject JudgeStartCanvas;
     public GameObject MysteryNotePanel;
+    public GameObject NominateButton;
     public RectTransform CheckInvestigationText;
 
     //List<Judge> judgeList = new List<Judge>();
@@ -62,6 +63,6 @@ public class TrialMngrChoosingJudge : MonoBehaviour
     {
         MysteryNote.Instance.ChooseJudge=judgeNum;
         Debug.Log(judgeNum+"번쨰 분위기 재판장을 선택하였습니다.");
-        MysteryNotePanel.SetActive(true);
+        NominateButton.SetActive(true);
     }
 }
