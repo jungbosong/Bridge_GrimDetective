@@ -27,7 +27,7 @@ public class TxtFileReader : MonoBehaviour
 
     private void Awake() 
     {
-        var objs = FindObjectsOfType<TxtFileReader>();
+        /*var objs = FindObjectsOfType<TxtFileReader>();
         if(objs.Length != 1) {
             Debug.Log("TxtFileReader 여러개 찾음");
             Debug.Log(gameObject.name);
@@ -35,36 +35,8 @@ public class TxtFileReader : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
-        Debug.Log(gameObject.name);
+        Debug.Log(gameObject.name);*/
     }
-    
-
-    void Start()
-    {
-        // 재판 기본 대화 데이터 불러오는 예시
-        List<Tuple<string,string>> basicConversationData = new List<Tuple<string,string>>();
-        basicConversationData = GetData("BasicConversation");
-        
-        // 외부 스크립트에선 아래와 같이 사용
-        // basicConversationData = TxtFileReader.instance.GetData("BasicConversation");
-
-        // 출력 예시
-        foreach(var data in basicConversationData)
-        {
-            // 주인공 대사일 경우
-            if(data.Item1 == "주인공")
-            {
-                Debug.Log(data.Item2);
-            }
-            // 주인공 외 캐릭터 대사일 경우
-            else
-            {
-                Debug.Log(data.Item2);
-            }
-            
-        }
-    }
-
     
     // ANCHOR GetData
     /// <summary>
@@ -90,7 +62,10 @@ public class TxtFileReader : MonoBehaviour
             if(line.Length > 1)
             {
                 string characterName = data[i].Split('\t')[0];
-                string dialogue = data[i].Split('\t')[1];
+                string dialogue = data[i].Split('\t')[2];
+
+                Debug.Log("TxtFileReader에서 읽은 이름: " + characterName);
+                Debug.Log("TxtFileReader에서 읽은 대사: " + dialogue);
 
                 result.Add(Tuple.Create(characterName, dialogue));
             }

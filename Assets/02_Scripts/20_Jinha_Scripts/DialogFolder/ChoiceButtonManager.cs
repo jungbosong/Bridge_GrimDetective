@@ -132,13 +132,13 @@ public class ChoiceButtonManager : MonoBehaviour
         // Debug.Log("ChatSend함수 시작");
          if (IsBool == true && chattext.Trim() != "")
          {
-             chatmanager.Chat(true, chattext, "나"); 
+             chatmanager.Chat(true, chattext); 
              chattext = "";
          }
 
          if (IsBool == false && chattext.Trim() != "")
          {
-             chatmanager.Chat(false, chattext, "타인"); 
+             chatmanager.Chat(false, chattext); 
              chattext = "";
          }
      }
