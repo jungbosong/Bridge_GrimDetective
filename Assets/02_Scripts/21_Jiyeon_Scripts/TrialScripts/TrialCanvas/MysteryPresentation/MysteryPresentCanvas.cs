@@ -33,7 +33,7 @@ public class MysteryPresentCanvas : MonoBehaviour
             errorArea.SetErrorTxt("범인을 선택하세요");
             errorArea.ShowErrorTxt();
         }
-        else if(!mysteryPresentationMng.isSelectedTool)
+        else if(!mysteryPresentationMng.isSelectedWeapon)
         {
             errorArea.SetErrorTxt("흉기를 선택하세요");
             errorArea.ShowErrorTxt();

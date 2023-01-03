@@ -83,8 +83,8 @@ public class PopupArea : MonoBehaviour
             }
             case 1: 
             {
-                mysteryPresentationMng.toolNum = evidenceNum;
-                mysteryPresentationMng.isSelectedTool = true;
+                mysteryPresentationMng.weaponNum = evidenceNum;
+                mysteryPresentationMng.isSelectedWeapon = true;
                 tabButtonArea.OnClickedMotiveTap();
                 investLogArea.SetActive(false);
                 break;
@@ -112,8 +112,8 @@ public class PopupArea : MonoBehaviour
             }
             case 1: 
             {
-                mysteryPresentationMng.toolNum = -1;
-                mysteryPresentationMng.isSelectedTool = false;
+                mysteryPresentationMng.weaponNum = -1;
+                mysteryPresentationMng.isSelectedWeapon = false;
                 break;
             }
             case 2: 

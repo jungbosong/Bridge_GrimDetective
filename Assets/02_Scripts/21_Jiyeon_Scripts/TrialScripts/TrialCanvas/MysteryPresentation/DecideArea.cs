@@ -35,7 +35,7 @@ public class DecideArea : MonoBehaviour
     void SetSelectedImages()
     {
         selectedImages[0].sprite = tabContentArea.suspectSprites[mysteryPresentationMng.suspectNum];
-        selectedImages[1].sprite = tabContentArea.toolSprites[mysteryPresentationMng.toolNum];
+        selectedImages[1].sprite = tabContentArea.toolSprites[mysteryPresentationMng.weaponNum];
         selectedImages[2].sprite = tabContentArea.motiveSprites[mysteryPresentationMng.motiveNum];
     }
 
@@ -43,8 +43,8 @@ public class DecideArea : MonoBehaviour
     {
         selectedNames[0].text = tabContentArea.suspectNames[mysteryPresentationMng.suspectNum];
         Debug.Log("범인명: " + tabContentArea.suspectNames[mysteryPresentationMng.suspectNum]);
-        selectedNames[1].text = tabContentArea.toolNames[mysteryPresentationMng.toolNum];
-        Debug.Log("흉기명: " + tabContentArea.toolNames[mysteryPresentationMng.toolNum]);
+        selectedNames[1].text = tabContentArea.toolNames[mysteryPresentationMng.weaponNum];
+        Debug.Log("흉기명: " + tabContentArea.toolNames[mysteryPresentationMng.weaponNum]);
         selectedNames[2].text = tabContentArea.motiveNames[mysteryPresentationMng.motiveNum];
         Debug.Log("동기명: " + tabContentArea.motiveNames[mysteryPresentationMng.motiveNum]);
     }
@@ -52,7 +52,7 @@ public class DecideArea : MonoBehaviour
     void SetSelectedReactions()
     {
         selectedReactions[0].text = popupArea.suspectReaction[mysteryPresentationMng.suspectNum];
-        selectedReactions[1].text = popupArea.toolReaction[mysteryPresentationMng.toolNum];
+        selectedReactions[1].text = popupArea.toolReaction[mysteryPresentationMng.weaponNum];
         selectedReactions[2].text = popupArea.motiveReaction[mysteryPresentationMng.motiveNum];
     }
 
