@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PreEvaluationCanvas : MonoBehaviour
+public class BattleCanvas : MonoBehaviour
 {
     List<Tuple<string,string>> dialogueData = new List<Tuple<string,string>>();
     int cnt = -1;        // 현재 진행 중인 대화 번호
-    int maxCnt = 0;
+    int maxCnt = 0;      // 현재 진행 중인 질문의 마지막 번호
     bool isStarted = false;
     ChatManager chatManager;
     [SerializeField] Image leftImg;
     [SerializeField] Image rightImg;
+    [SerializeField] GameObject conversationBtn;
     Color greyColor, whiteColor;
     CombinationGraph combinationGraph;
-    [SerializeField] MysteryPresentationMng mysteryPresentationMng;
     public int suspect, weapon, motive;
     string result;
+    string questionType; // 현재 진행중인 질문 종류
 
     void Awake() 
     {
@@ -28,14 +29,13 @@ public class PreEvaluationCanvas : MonoBehaviour
         ColorUtility.TryParseHtmlString("#484848", out greyColor);
         ColorUtility.TryParseHtmlString("#FFFFFF", out whiteColor);
         this.gameObject.SetActive(false);
-        mysteryPresentationMng = mysteryPresentationMng.gameObject.GetComponent<MysteryPresentationMng>();
     }
 
     void SetData(string fileName)
     {
         dialogueData.Clear();
         dialogueData = TxtFileReader.Instance.GetData(fileName);
-        Debug.Log("선평가 대사를 불러온 내용을 출력합니다.");
+        Debug.Log("대사를 불러온 내용을 출력합니다.");
         foreach(var data in dialogueData)
         {
             Debug.Log(data.Item1 + "\t" + data.Item2);
@@ -63,75 +63,51 @@ public class PreEvaluationCanvas : MonoBehaviour
             chatManager.Chat(false, line.Item2);
     
         }
-        
     }
 
-    public void StartPreJudgment()
+    /*public void StartPreJudgment()
     {
         SetData("1_PreJudgment");
         cnt = -1;
-    }
+    }*/
 
     public void OnClickedDialogueBtn()
     { 
-        Debug.Log("선평가 버튼이 눌러졌습니다..");
+        Debug.Log("공방 버튼이 눌러졌습니다..");
         cnt++;
         Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + maxCnt);
         if(cnt < maxCnt-1)
         {
-            if(cnt == 3) ShowPrejudgResult();
-            else ShowLine(dialogueData[cnt]);
+           ShowLine(dialogueData[cnt]);
         }
         else
         {
-            //StartMysteryPresentatioin();
-            this.gameObject.SetActive(false);
+//            this.gameObject.SetActive(false);
+            conversationBtn.SetActive(false);
             chatManager.DestroyAllBoxes();
         }
     }
-    
-    void StartMysteryPresentatioin()
+
+    // TODO 질문 대사 출력
+    // string tmpPath = "/" + questionNum + "_Question";
+    // ShowQuestionData(path + tmpPath + "/Question.txt");
+    public void ShowQuestionData(string path)
     {
-        //mysteryCanvas.SetActive(true);
+        SetData(path);
+        Debug.Log("질문 대사 출력");
+
+        cnt = -1;
+        conversationBtn.SetActive(true);
+
+        Debug.Log("질문 대사 출력 완료");
+        Debug.Log("-----------------------");
     }
 
-    void ShowPrejudgResult()
-    {
-        // 플레이어가 선택한 추리 조합 정보 불러오기
-        suspect = mysteryPresentationMng.suspectNum;
-        weapon = mysteryPresentationMng.weaponNum;
-        motive = mysteryPresentationMng.motiveNum;
+    // TODO 선택지 팝업창 출력
 
-        Debug.Log("최종 선택된 범인: " + suspect);
-        Debug.Log("최종 선택된 흉기: " + weapon);
-        Debug.Log("최종 선택된 동기: " + motive);
+    // TODO 선택지 선택에 대한 답변 출력
+    // TODO 증거제시 팝업창 출력
 
-        int row = suspect;
-        int col = weapon + 4;
-        int firstWeight = combinationGraph.GetWeight(row,col);
-        Debug.Log("firstWeight: " + firstWeight);
-        row = col;
-        col = motive + 8;
-        int secondWeight = combinationGraph.GetWeight(row,col);
-        Debug.Log("secondWeight: " + secondWeight);
-
-        int endingType;
-
-        if(firstWeight == secondWeight) {  // 조합에따라 정해진  엔딩타입 설정
-            endingType = firstWeight;
-        } else {
-            endingType = 0;  // 불가능한 추리
-        }
-        Debug.Log("결정된 엔딩 종류");
-        
-        switch (endingType)
-        {
-            case 0: result = "불가능"; break;
-            case 1: result = "최악"; break;
-            case 2: result = "보통"; break;
-            case 3: result = "최선"; break;
-        }
-        ShowLine(new Tuple<string, string>("저승사자", result));
-    }
+    // TODO 정답 증거 제시에 대한 반응 출력
 
 }

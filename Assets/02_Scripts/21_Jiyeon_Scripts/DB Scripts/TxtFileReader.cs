@@ -64,8 +64,8 @@ public class TxtFileReader : MonoBehaviour
                 string characterName = data[i].Split('\t')[0];
                 string dialogue = data[i].Split('\t')[2];
 
-                Debug.Log("TxtFileReader에서 읽은 이름: " + characterName);
-                Debug.Log("TxtFileReader에서 읽은 대사: " + dialogue);
+                //Debug.Log("TxtFileReader에서 읽은 이름: " + characterName);
+                //Debug.Log("TxtFileReader에서 읽은 대사: " + dialogue);
 
                 result.Add(Tuple.Create(characterName, dialogue));
             }
