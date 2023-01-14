@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using QuestionData;
 
 public class TabContentArea : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class TabContentArea : MonoBehaviour
     public List<string> suspectNames = new List<string>();
     public List<string> toolNames = new List<string>();
     public List<string> motiveNames = new List<string>();
+    public string nowStep = "Battle";
+    public string proof;
+    public BattleManager battleManager;
 
     void Awake() 
     {
@@ -79,7 +83,69 @@ public class TabContentArea : MonoBehaviour
     {
         Debug.Log("OnClickedEvidenceBtn");
         Debug.Log("Num: " + evidenceNum);
+
         popupArea.SetEvidenceNum(evidenceNum);
         popupArea.ShowPopupArea();
+    }
+
+    public void SetBattleBtn(string tabName)
+    {
+        battleManager = battleManager.gameObject.GetComponent<BattleManager>();
+        for(int i = 0; i < 4; i++)
+        {
+            int tmp = i;
+            switch(tabName)
+            {
+                case "SUSPECT": 
+                {
+                    btns[tmp].onClick.RemoveAllListeners();
+                    btns[tmp].onClick.AddListener(() => OnClickedProofBtn(tabName, tmp));
+                    btns[tmp].onClick.AddListener(() => battleManager.ShowProofAction());
+                    btns[i].transform.GetComponent<Image>().sprite = suspectSprites[i];
+                    texts[i].text = suspectNames[i];
+                    break;
+                }
+                case "TOOL": 
+                {
+                    btns[tmp].onClick.RemoveAllListeners();
+                    btns[tmp].onClick.AddListener(() => OnClickedProofBtn(tabName, tmp));
+                    btns[tmp].onClick.AddListener(() => battleManager.ShowProofAction());
+                    btns[i].transform.GetComponent<Image>().sprite = toolSprites[i];
+                    texts[i].text = toolNames[i];
+                    break;
+                }
+                case "MOTIVE": 
+                {
+                    btns[tmp].onClick.RemoveAllListeners();
+                    btns[tmp].onClick.AddListener(() => OnClickedProofBtn(tabName, tmp));
+                    btns[tmp].onClick.AddListener(() => battleManager.ShowProofAction());
+                    btns[i].transform.GetComponent<Image>().sprite = motiveSprites[i];
+                    texts[i].text = motiveNames[i];
+                    break;
+                }
+            }
+        }
+    }
+
+    void OnClickedProofBtn(string tabName, int evidenceNum)
+    {
+        switch(tabName)
+        {
+            case "SUSPECT": 
+            {
+                proof = "0_" + evidenceNum.ToString();
+                break;
+            }
+            case "TOOL": 
+            {
+                proof = "1_" + evidenceNum.ToString();
+                break;
+            }
+            case "MOTIVE": 
+            {
+                proof = "2_" + evidenceNum.ToString();
+                break;
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ public class TabButtonArea : MonoBehaviour
     Text suspectTabTxt, toolTabTxt, motiveTabTxt;
     [SerializeField] TabContentArea tabContentArea;
     Color white, grey;
+    public BattleManager battleManager;
     void Awake() 
     {
         tabContentArea = tabContentArea.gameObject.GetComponent<TabContentArea>();
@@ -56,5 +57,17 @@ public class TabButtonArea : MonoBehaviour
         suspectTabTxt.color = grey;
         toolTabTxt.color = grey;
         motiveTabTxt.color = white;
+    }
+
+    public void SetBattleTab()
+    {
+        battleManager = battleManager.gameObject.GetComponent<BattleManager>();
+        suspectTabBtn.onClick.RemoveAllListeners();
+        toolTabBtn.onClick.RemoveAllListeners();
+        motiveTabBtn.onClick.RemoveAllListeners();
+
+        suspectTabBtn.onClick.AddListener(battleManager.OnClickedSuspectTab);
+        toolTabBtn.onClick.AddListener(battleManager.OnClickedToolTap);
+        motiveTabBtn.onClick.AddListener(battleManager.OnClickedMotiveTap);
     }
 }

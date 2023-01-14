@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using QuestionData;
 
@@ -9,17 +10,52 @@ public class BattleManager : MonoBehaviour
 { 
     public int suspect, weapon, motive;    // 테스트용 범인, 흉기, 동기번호
     int questionCnt;                // 질문 개수
-    string questionType;            // 질문 종류
+    List<string> questionType = new List<string>();            // 질문 종류
     int choiceCnt;                   // 선택지 개수
-    string correctProof;            // 정답 증거
+    string correctProof ="";            // 정답 증거 "종류_번호"
     string path = "Assets/DialogueData/TrialData/BattleData/Battle";
     List<QC> choiceQuestions = new List<QC>();
     List<QP> proofQuestions = new List<QP>();
-    int QCNum = 0, QPNum = 0;
+    QP nowQP;
+    int QCNum = 0, QPNum = 0;   // 현재 진행중인 QC, QP 번호
+    int questionNum = -1;    // 현재 진행중인 질문 번호
+
+    int cnt = -1;        // 현재 진행 중인 대화 번호
+    ChatManager chatManager;
+    [SerializeField] Image leftImg;
+    [SerializeField] Image rightImg;
+    [SerializeField] GameObject conversationBtn;
+    [SerializeField] GameObject choiceBtnArea;
+    [SerializeField] GameObject investigationLogArea;
+    [SerializeField] GameObject actionBtn;
+    [SerializeField] Text suspectTabTxt;
+    [SerializeField] Text toolTabTxt;
+    [SerializeField] Text motiveTabTxt;
+    Color greyColor, whiteColor;
+    //CombinationGraph combinationGraph;
+    TabContentArea tabContentArea;
+    TabButtonArea tabButtonArea;
 
     void Awake() 
     {
+        chatManager = this.gameObject.GetComponent<ChatManager>();   
+        tabContentArea = investigationLogArea.transform.GetChild(1).GetComponent<TabContentArea>();
+        tabButtonArea = investigationLogArea.transform.GetChild(0).GetComponent<TabButtonArea>();
+        suspectTabTxt = suspectTabTxt.GetComponent<Text>();
+        toolTabTxt = toolTabTxt.GetComponent<Text>();
+        motiveTabTxt = motiveTabTxt.GetComponent<Text>();
+        //combinationGraph = this.gameObject.GetComponent<CombinationGraph>();
+        leftImg = leftImg.transform.GetComponent<Image>();
+        rightImg = rightImg.transform.GetComponent<Image>();
+        ColorUtility.TryParseHtmlString("#484848", out greyColor);
+        ColorUtility.TryParseHtmlString("#FFFFFF", out whiteColor);
+        choiceBtnArea.SetActive(false);
+        investigationLogArea.SetActive(false);
+        actionBtn.SetActive(false);
+        //this.gameObject.SetActive(false);
+
         SetQeustionData();
+        ProcessBattle();
     }
 
     void SetClueNum()
@@ -39,59 +75,50 @@ public class BattleManager : MonoBehaviour
 
         for(int questionNum = 1; questionNum <= questionCnt; questionNum++)
         {
-            // questionNum번재 질문의 종류 확인
+            // questionNum번째 질문의 종류 확인
             string tmpPath = "/" + questionNum + "_Question";
             GetQuestionInfo(path + tmpPath + "/QuestionInfo.txt");
             
-            Debug.Log("선택지 개수" + choiceCnt);
-            Debug.Log("정답번호" + correctProof);
+            //Debug.Log("선택지 개수" + choiceCnt);
+            //Debug.Log("정답번호" + correctProof);
             
             // 선택지 질문일 경우
-            if(questionType == "QC\r") 
+            if(questionType[questionNum-1] == "QC\r") 
             {
                 //Debug.Log("선택지 질문 입니다.");
                 choiceQuestions.Add(new QC(path + tmpPath, choiceCnt));
-                //CheckQCData();
+                
             }
             // 증거제시 질문일 경우
-            if(questionType == "QP\r")
+            if(questionType[questionNum-1] == "QP\r")
             {
                 //Debug.Log("증거 제시 질문 입니다.");
                 proofQuestions.Add(new QP(path + tmpPath, correctProof));
-                //CheckQPData();
+                
             }
         }
-
-        for(int i = 0; i <choiceQuestions.Count; i++)
-        {
-            CheckQCData();
-        }
-        for(int i = 0; i <proofQuestions.Count; i++)
-        {
-            CheckQPData();
-        }
-
     }
 
     // 질문 개수 얻는 함수
     private int GetQuestionCnt(string path)
     {
-        int questionCnt = 0;
+        int cnt = 0;
         DirectoryInfo di = new DirectoryInfo(path);
         foreach(DirectoryInfo Dir in di.GetDirectories())
         {
-            questionCnt++;
+            cnt++;
         }
-        return questionCnt;
+        return cnt;
     }
 
       // 질문 정보(질문 종류, 정답 증거) 얻는 함수
     private void GetQuestionInfo(string path)
     {
         string[] data = File.ReadAllText(path).Split('\n');
-        questionType = data[0];
+        questionType.Add(data[0]);
+        string type = data[0];
     
-        if(questionType == "QC\r")
+        if(type == "QC\r")
         {
             choiceCnt = int.Parse(data[1]);
             
@@ -100,12 +127,253 @@ public class BattleManager : MonoBehaviour
         {
             correctProof = data[1];
         }
-        
     }
 
     // 질문 진행
+    void ProcessBattle()
+    {
+        questionNum++;
+        if(questionNum < questionType.Count)
+        {
+            if(questionType[questionNum] == "QC\r")
+            {
+                Debug.Log("현재 질문 종류: QC");
+                Debug.Log("현재 QC 번호: " + QCNum);
+                ShowQCData(choiceQuestions[QCNum++]);
+            }
+            if(questionType[questionNum] == "QP\r")
+            {
+                Debug.Log("현재 질문 종류: QP");
+                Debug.Log("현재 QP 번호: " + QPNum);
+                ShowQPData(proofQuestions[QPNum++]);
+            }
+        }
+        else
+        {
+            Debug.Log("모든 질문 완료");
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    void ShowLine(string name, string dialogue)
+    {
+        // 주인공 대사 출력
+        if(name == "주인공")
+        {
+            Debug.Log(dialogue);
+            //rightImg.color = whiteColor;
+            rightImg.color = whiteColor;
+            leftImg.color = greyColor;
+            chatManager.Chat(true, dialogue);
+        }
+        // 주인공 외 캐릭터 대사 출력
+        else
+        {
+            Debug.Log(dialogue);
+            rightImg.color = greyColor;
+            leftImg.color = whiteColor;
+            chatManager.Chat(false, dialogue);
+    
+        }
+    }
+
+    void ShowQCData(QC qc)
+    {
+        cnt = -1;
+        conversationBtn.SetActive(true);
+        conversationBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        conversationBtn.GetComponent<Button>().onClick.AddListener(() => {OnClickedQCBtn(qc, 2);});
+    }
+
+    void OnClickedQCBtn(QC qc, int lastCnt)
+    {
+        Debug.Log("대화 버튼이 눌러졌습니다..");
+        cnt++;
+        Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + lastCnt);
+
+        if(cnt < lastCnt-1)
+        {
+            Debug.Log("선택 질문 대사 출력");
+            Debug.Log(qc.question.character + ": " + qc.question.dialogue);
+            ShowLine(qc.question.character, qc.question.dialogue);
+        }
+        else
+        {
+            conversationBtn.SetActive(false);
+            //chatManager.DestroyAllBoxes();
+            rightImg.color = whiteColor;
+            leftImg.color = greyColor;
+            ShowChoiceBtns(qc);
+        }
+    }
+
+    // 선택지 팝업창 출력
+    void ShowChoiceBtns(QC qc)
+    {
+        choiceBtnArea.SetActive(true);
+        
+        for(int i = 0; i < qc.choices.Count; i++)
+        {
+            Debug.Log("선택지" + i + ": " + qc.choices[i]);
+            Button btn = choiceBtnArea.transform.GetChild(i).GetComponent<Button>();
+            btn.transform.GetChild(0).GetComponent<Text>().text = qc.choices[i];
+            int tmp = i;
+            btn.onClick.RemoveAllListeners();
+            btn.onClick.AddListener(() => {ShowChoiceAction(qc, tmp);});
+        }
+    }
+
+    // 선택지 선택에 대한 반응 출력
+    void ShowChoiceAction(QC qc, int num)
+    {
+        choiceBtnArea.SetActive(false);
+        cnt = -1;
+        actionBtn.SetActive(true);
+        actionBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        actionBtn.GetComponent<Button>().onClick.AddListener(() => {OnClickedQCActionBtn(qc, num);});
+    }
+
+     public void OnClickedQCActionBtn(QC qc, int num)
+    { 
+        Debug.Log("액션 버튼이 눌러졌습니다..");
+        cnt++;
+        int lastCnt = qc.actions[num].Count;
+        Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + lastCnt);
+
+        if(cnt < lastCnt)
+        {
+           ShowLine(qc.actions[num][cnt].character, qc.actions[num][cnt].dialogue);
+        }
+        else
+        {
+            actionBtn.SetActive(false);
+            chatManager.DestroyAllBoxes();
+            ProcessBattle();
+        }
+    }
+
+    // 증거제시 질문 출력
+
+    public void ShowQPData(QP qp)
+    {
+        nowQP = qp;
+        cnt = -1;
+        conversationBtn.SetActive(true);
+        conversationBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        conversationBtn.GetComponent<Button>().onClick.AddListener(() => {OnClickedQPBtn(qp, qp.question.Count);});
+    }
+
+    void OnClickedQPBtn(QP qp, int lastCnt)
+    {
+        Debug.Log("대화 버튼이 눌러졌습니다..");
+        cnt++;
+        Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + lastCnt);
+
+        if(cnt < lastCnt)
+        {
+            Debug.Log("증거제시 질문 대사 출력");
+            Debug.Log(qp.question[cnt].character + ": " + qp.question[cnt].dialogue);
+            ShowLine(qp.question[cnt].character, qp.question[cnt].dialogue);
+        }
+        else
+        {
+            Debug.Log("증거제시 질문 대사 출력 완료");
+            conversationBtn.SetActive(false);
+            rightImg.color = whiteColor;
+            leftImg.color = greyColor;
+            ShowInventoryLogs(qp);
+        }
+    }
+
+    void ShowInventoryLogs(QP qp)
+    {
+        Debug.Log("증거제시 창 띄우기");
+        tabButtonArea.SetBattleTab();
+        OnClickedSuspectTab();
+        investigationLogArea.SetActive(true);
+    }
+
+    // 증거 제시에 대한 반응 출력
+    public void ShowProofAction()
+    {
+        investigationLogArea.SetActive(false);
+        cnt = -1;
+        actionBtn.SetActive(true);
+        actionBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+        actionBtn.GetComponent<Button>().onClick.AddListener(() => {OnClickedQPActionBtn(nowQP);});
+    }
+
+    void OnClickedQPActionBtn(QP qp) 
+    {
+        string proof = tabContentArea.proof;
+        if(correctProof == proof)
+        {
+            Debug.Log("정답반응");
+            cnt++;
+            int lastCnt = qp.correctAction.Count;
+            Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + lastCnt);
+
+            if(cnt < lastCnt)
+            {
+                ShowLine(qp.correctAction[cnt].character, qp.correctAction[cnt].dialogue);
+            }
+            else
+            {
+                actionBtn.SetActive(false);
+                chatManager.DestroyAllBoxes();
+                ProcessBattle();
+            }
+        }
+        else
+        {
+            Debug.Log("오답반응");
+            cnt++;
+            int lastCnt = qp.nCorrectAction.Count;
+            Debug.Log("현재 cnt: " + cnt + "\tmaxCnt: " + lastCnt);
+
+            if(cnt < lastCnt)
+            {
+                ShowLine(qp.nCorrectAction[cnt].character, qp.nCorrectAction[cnt].dialogue);
+            }
+            else
+            {
+                actionBtn.SetActive(false);
+                chatManager.DestroyAllBoxes();
+                ProcessBattle();
+            }
+        }
+    }
+
+    public void OnClickedSuspectTab()
+    {
+        tabContentArea.SetTabTitleTxt("SUSPECT");
+        tabContentArea.SetBattleBtn("SUSPECT");
+        suspectTabTxt.color = whiteColor;
+        toolTabTxt.color = greyColor;
+        motiveTabTxt.color = greyColor;
+    }
+
+    public void OnClickedToolTap()
+    {
+        tabContentArea.SetTabTitleTxt("TOOL");
+        tabContentArea.SetBattleBtn("TOOL");
+        suspectTabTxt.color = greyColor;
+        toolTabTxt.color = whiteColor;
+        motiveTabTxt.color = greyColor;
+    }
+
+    public void OnClickedMotiveTap()
+    {
+        tabContentArea.SetTabTitleTxt("MOTIVE");
+        tabContentArea.SetBattleBtn("MOTIVE");
+        suspectTabTxt.color = greyColor;
+        toolTabTxt.color = greyColor;
+        motiveTabTxt.color = whiteColor;
+    }
+    
+
     // 저장된 질문 데이터 확인
-    void CheckQCData()
+    /*void CheckQCData()
     {
         foreach(QC qc in choiceQuestions)
         {
@@ -147,5 +415,5 @@ public class BattleManager : MonoBehaviour
                 Debug.Log(qp.nCorrectAction[i].character + ": " + qp.nCorrectAction[i].dialogue);
             }
         }
-    }
+    }*/
 }
