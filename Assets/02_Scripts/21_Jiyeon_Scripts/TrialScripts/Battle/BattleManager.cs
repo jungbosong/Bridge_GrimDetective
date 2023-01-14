@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
     QP nowQP;
     int QCNum = 0, QPNum = 0;   // 현재 진행중인 QC, QP 번호
     int questionNum = -1;    // 현재 진행중인 질문 번호
+    int correctCnt = 0;     // 정답 맞춘 공방 개수
 
     int cnt = -1;        // 현재 진행 중인 대화 번호
     ChatManager chatManager;
@@ -28,6 +29,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject choiceBtnArea;
     [SerializeField] GameObject investigationLogArea;
     [SerializeField] GameObject actionBtn;
+    [SerializeField] GameObject goodEndingCanvas;
+    [SerializeField] GameObject badEndingCanvas;
     [SerializeField] Text suspectTabTxt;
     [SerializeField] Text toolTabTxt;
     [SerializeField] Text motiveTabTxt;
@@ -78,9 +81,6 @@ public class BattleManager : MonoBehaviour
             // questionNum번째 질문의 종류 확인
             string tmpPath = "/" + questionNum + "_Question";
             GetQuestionInfo(path + tmpPath + "/QuestionInfo.txt");
-            
-            //Debug.Log("선택지 개수" + choiceCnt);
-            //Debug.Log("정답번호" + correctProof);
             
             // 선택지 질문일 경우
             if(questionType[questionNum-1] == "QC\r") 
@@ -135,22 +135,42 @@ public class BattleManager : MonoBehaviour
         questionNum++;
         if(questionNum < questionType.Count)
         {
+            int remainQuestions = questionCnt - questionNum;
+            int expectedCorrectNum = remainQuestions+correctCnt;
+            double expectedCorrectRate = (double)expectedCorrectNum/questionCnt * 100;
+            Debug.Log("현재 질문 번호: " + questionNum);
+            Debug.Log("남은 질문 개수: " + remainQuestions);
+            Debug.Log("현재 정답률: " + ((double)correctCnt/questionCnt * 100) + "%");
+            Debug.Log("예상 정답률: " + expectedCorrectRate + "%");
+
+            if(expectedCorrectRate < 50.0) 
+            {
+                Debug.Log("정답률 50%이하. 실패.");
+                badEndingCanvas.SetActive(true);
+                badEndingCanvas.GetComponent<BadEndingCanvas>().StartBadEnding();
+                this.gameObject.SetActive(false);
+                return;
+            }
             if(questionType[questionNum] == "QC\r")
             {
                 Debug.Log("현재 질문 종류: QC");
                 Debug.Log("현재 QC 번호: " + QCNum);
                 ShowQCData(choiceQuestions[QCNum++]);
+                return;
             }
             if(questionType[questionNum] == "QP\r")
             {
                 Debug.Log("현재 질문 종류: QP");
                 Debug.Log("현재 QP 번호: " + QPNum);
                 ShowQPData(proofQuestions[QPNum++]);
+                return;
             }
         }
         else
         {
             Debug.Log("모든 질문 완료");
+            goodEndingCanvas.SetActive(true);
+            goodEndingCanvas.GetComponent<GoodEndingCanvas>().StartGoodEnding();
             this.gameObject.SetActive(false);
         }
     }
@@ -243,6 +263,12 @@ public class BattleManager : MonoBehaviour
         if(cnt < lastCnt)
         {
            ShowLine(qc.actions[num][cnt].character, qc.actions[num][cnt].dialogue);
+           // 정답인 선택지 골랐을 때 반응 (정답률++)
+           if(qc.actions[num][cnt].dialogue.Equals("(제법 긍정적인 반응 같다.)")) 
+           {
+                correctCnt++;
+                Debug.Log("정답을 골랐습니다! 현재 맞춘 정답 개수: " + correctCnt);
+           }
         }
         else
         {
@@ -319,6 +345,8 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
+                correctCnt++;
+                Debug.Log("정답을 골랐습니다! 현재 맞춘 정답 개수: " + correctCnt);
                 actionBtn.SetActive(false);
                 chatManager.DestroyAllBoxes();
                 ProcessBattle();
