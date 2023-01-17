@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TabButtonArea : MonoBehaviour
 {
     [SerializeField] Button suspectTabBtn, toolTabBtn, motiveTabBtn;
     [SerializeField] PopupArea popupArea;
-    Text suspectTabTxt, toolTabTxt, motiveTabTxt;
+    [SerializeField] TextMeshProUGUI suspectTabTxt, toolTabTxt, motiveTabTxt;
     [SerializeField] TabContentArea tabContentArea;
     Color white, grey;
     public BattleManager battleManager;
@@ -20,9 +21,9 @@ public class TabButtonArea : MonoBehaviour
         popupArea = popupArea.gameObject.GetComponent<PopupArea>();
         ColorUtility.TryParseHtmlString("#EEEEEE", out white);
         ColorUtility.TryParseHtmlString("#767676", out grey);
-        suspectTabTxt = suspectTabBtn.transform.GetComponentInChildren<Text>();
-        toolTabTxt = toolTabBtn.transform.GetComponentInChildren<Text>();
-        motiveTabTxt = motiveTabBtn.transform.GetComponentInChildren<Text>();
+        suspectTabTxt = suspectTabBtn.transform.GetComponentInChildren<TextMeshProUGUI>();
+        toolTabTxt = toolTabBtn.transform.GetComponentInChildren<TextMeshProUGUI>();
+        motiveTabTxt = motiveTabBtn.transform.GetComponentInChildren<TextMeshProUGUI>();
         OnClickedSuspectTab();
     }
 

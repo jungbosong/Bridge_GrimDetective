@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PopupArea : MonoBehaviour
 {
     int evidenceType, evidenceNum;
     [SerializeField] MysteryPresentationMng mysteryPresentationMng;
     [SerializeField] TabButtonArea tabButtonArea;
-    [SerializeField] Text popupText;
+    [SerializeField] TextMeshProUGUI popupText;
     public List<string> suspectReaction = new List<string>();
     public List<string> toolReaction = new List<string>();
     public List<string> motiveReaction = new List<string>();

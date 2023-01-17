@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ErrorArea : MonoBehaviour
 {
-    [SerializeField] Text errorText;
+    [SerializeField] TextMeshProUGUI errorText;
     [SerializeField] Image lImage;
     [SerializeField] Image rImage;
     Color white, grey;

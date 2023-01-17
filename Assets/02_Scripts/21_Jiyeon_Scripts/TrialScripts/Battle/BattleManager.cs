@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using QuestionData;
+using TMPro;
 
 public class BattleManager : MonoBehaviour
 { 
@@ -31,9 +32,9 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject actionBtn;
     [SerializeField] GameObject goodEndingCanvas;
     [SerializeField] GameObject badEndingCanvas;
-    [SerializeField] Text suspectTabTxt;
-    [SerializeField] Text toolTabTxt;
-    [SerializeField] Text motiveTabTxt;
+    [SerializeField] TextMeshProUGUI suspectTabTxt;
+    [SerializeField] TextMeshProUGUI toolTabTxt;
+    [SerializeField] TextMeshProUGUI motiveTabTxt;
     Color greyColor, whiteColor;
     //CombinationGraph combinationGraph;
     TabContentArea tabContentArea;
@@ -44,9 +45,9 @@ public class BattleManager : MonoBehaviour
         chatManager = this.gameObject.GetComponent<ChatManager>();   
         tabContentArea = investigationLogArea.transform.GetChild(1).GetComponent<TabContentArea>();
         tabButtonArea = investigationLogArea.transform.GetChild(0).GetComponent<TabButtonArea>();
-        suspectTabTxt = suspectTabTxt.GetComponent<Text>();
-        toolTabTxt = toolTabTxt.GetComponent<Text>();
-        motiveTabTxt = motiveTabTxt.GetComponent<Text>();
+        suspectTabTxt = suspectTabTxt.GetComponent<TextMeshProUGUI>();
+        toolTabTxt = toolTabTxt.GetComponent<TextMeshProUGUI>();
+        motiveTabTxt = motiveTabTxt.GetComponent<TextMeshProUGUI>();
         //combinationGraph = this.gameObject.GetComponent<CombinationGraph>();
         leftImg = leftImg.transform.GetComponent<Image>();
         rightImg = rightImg.transform.GetComponent<Image>();
@@ -236,7 +237,7 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("선택지" + i + ": " + qc.choices[i]);
             Button btn = choiceBtnArea.transform.GetChild(i).GetComponent<Button>();
-            btn.transform.GetChild(0).GetComponent<Text>().text = qc.choices[i];
+            btn.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = qc.choices[i];
             int tmp = i;
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => {ShowChoiceAction(qc, tmp);});
