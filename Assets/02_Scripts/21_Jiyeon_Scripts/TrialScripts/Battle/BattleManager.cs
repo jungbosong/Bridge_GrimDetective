@@ -24,6 +24,7 @@ public class BattleManager : MonoBehaviour
 
     int cnt = -1;        // 현재 진행 중인 대화 번호
     ChatManager chatManager;
+    [SerializeField] MysteryPresentationMng mysteryPresentationMng;
     [SerializeField] Image leftImg;
     [SerializeField] Image rightImg;
     [SerializeField] GameObject conversationBtn;
@@ -49,6 +50,7 @@ public class BattleManager : MonoBehaviour
         toolTabTxt = toolTabTxt.GetComponent<TextMeshProUGUI>();
         motiveTabTxt = motiveTabTxt.GetComponent<TextMeshProUGUI>();
         //combinationGraph = this.gameObject.GetComponent<CombinationGraph>();
+        mysteryPresentationMng = mysteryPresentationMng.GetComponent<MysteryPresentationMng>();
         leftImg = leftImg.transform.GetComponent<Image>();
         rightImg = rightImg.transform.GetComponent<Image>();
         ColorUtility.TryParseHtmlString("#484848", out greyColor);
@@ -56,21 +58,18 @@ public class BattleManager : MonoBehaviour
         choiceBtnArea.SetActive(false);
         investigationLogArea.SetActive(false);
         actionBtn.SetActive(false);
-        //this.gameObject.SetActive(false);
-
-        SetQeustionData();
-        ProcessBattle();
+        this.gameObject.SetActive(false);
     }
 
     void SetClueNum()
     {
-        /*suspect = mysteryPresentationMng.suspectNum;
+        suspect = mysteryPresentationMng.suspectNum;
         weapon = mysteryPresentationMng.weaponNum;
-        motive = mysteryPresentationMng.motiveNum;*/
+        motive = mysteryPresentationMng.motiveNum;
     }
 
     // 질문 정보 저장
-    void SetQeustionData() 
+    public void SetQeustionData() 
     {
         SetClueNum();
 
@@ -131,7 +130,7 @@ public class BattleManager : MonoBehaviour
     }
 
     // 질문 진행
-    void ProcessBattle()
+    public void ProcessBattle()
     {
         questionNum++;
         if(questionNum < questionType.Count)
