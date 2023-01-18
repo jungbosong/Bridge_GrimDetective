@@ -11,6 +11,7 @@ public class PreEvaluationCanvas : MonoBehaviour
     int maxCnt = 0;
     bool isStarted = false;
     ChatManager chatManager;
+    [SerializeField] GameObject battleCanvas;
     [SerializeField] Image leftImg;
     [SerializeField] Image rightImg;
     Color greyColor, whiteColor;
@@ -61,7 +62,6 @@ public class PreEvaluationCanvas : MonoBehaviour
             rightImg.color = greyColor;
             leftImg.color = whiteColor;
             chatManager.Chat(false, line.Item2);
-    
         }
         
     }
@@ -84,15 +84,12 @@ public class PreEvaluationCanvas : MonoBehaviour
         }
         else
         {
-            //StartMysteryPresentatioin();
+            battleCanvas.SetActive(true);
+            battleCanvas.GetComponent<BattleManager>().SetQeustionData();
+            battleCanvas.GetComponent<BattleManager>().ProcessBattle();
             this.gameObject.SetActive(false);
             chatManager.DestroyAllBoxes();
         }
-    }
-    
-    void StartMysteryPresentatioin()
-    {
-        //mysteryCanvas.SetActive(true);
     }
 
     void ShowPrejudgResult()

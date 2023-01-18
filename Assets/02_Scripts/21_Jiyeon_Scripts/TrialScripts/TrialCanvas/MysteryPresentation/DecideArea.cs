@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DecideArea : MonoBehaviour
 {
@@ -10,8 +11,8 @@ public class DecideArea : MonoBehaviour
     [SerializeField] PopupArea popupArea;
     [SerializeField] GameObject mysteryPresentCanvas;
     [SerializeField] List<Image> selectedImages = new List<Image>();
-    [SerializeField] List<Text> selectedNames = new List<Text>();
-    [SerializeField] List<Text> selectedReactions = new List<Text>();
+    [SerializeField] List<TextMeshProUGUI> selectedNames = new List<TextMeshProUGUI>();
+    //[SerializeField] List<TextMeshProUGUI> selectedReactions = new List<TextMeshProUGUI>();
     [SerializeField] Button sureBtn, notSureBtn;
 
     void Awake() 
@@ -28,7 +29,7 @@ public class DecideArea : MonoBehaviour
     {
         SetSelectedImages();
         SetSelectedNames();
-        SetSelectedReactions();
+        //SetSelectedReactions();
         this.gameObject.SetActive(true);
     }   
 
@@ -49,12 +50,12 @@ public class DecideArea : MonoBehaviour
         Debug.Log("동기명: " + tabContentArea.motiveNames[mysteryPresentationMng.motiveNum]);
     }
 
-    void SetSelectedReactions()
+    /*void SetSelectedReactions()
     {
         selectedReactions[0].text = popupArea.suspectReaction[mysteryPresentationMng.suspectNum];
         selectedReactions[1].text = popupArea.toolReaction[mysteryPresentationMng.weaponNum];
         selectedReactions[2].text = popupArea.motiveReaction[mysteryPresentationMng.motiveNum];
-    }
+    }*/
 
     void OnClickedSureBtn()
     {
