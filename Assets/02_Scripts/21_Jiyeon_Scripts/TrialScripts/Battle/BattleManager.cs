@@ -49,7 +49,6 @@ public class BattleManager : MonoBehaviour
         suspectTabTxt = suspectTabTxt.GetComponent<TextMeshProUGUI>();
         toolTabTxt = toolTabTxt.GetComponent<TextMeshProUGUI>();
         motiveTabTxt = motiveTabTxt.GetComponent<TextMeshProUGUI>();
-        //combinationGraph = this.gameObject.GetComponent<CombinationGraph>();
         mysteryPresentationMng = mysteryPresentationMng.GetComponent<MysteryPresentationMng>();
         leftImg = leftImg.transform.GetComponent<Image>();
         rightImg = rightImg.transform.GetComponent<Image>();
@@ -72,6 +71,13 @@ public class BattleManager : MonoBehaviour
     public void SetQeustionData() 
     {
         SetClueNum();
+
+        if(suspect == 3) {
+            return;
+        }
+        if(suspect == 0 && weapon == 0 && motive == 0) {
+            return;
+        }
 
         path += "_" + suspect + "_" + weapon + "_" + motive;
         questionCnt = GetQuestionCnt(path);
@@ -128,6 +134,12 @@ public class BattleManager : MonoBehaviour
             correctProof = data[1];
         }
     }
+    void StartBadEnding()
+    {
+        badEndingCanvas.SetActive(true);
+        badEndingCanvas.GetComponent<BadEndingCanvas>().StartBadEnding();
+        this.gameObject.SetActive(false);
+    }
 
     // 질문 진행
     public void ProcessBattle()
@@ -146,9 +158,7 @@ public class BattleManager : MonoBehaviour
             if(expectedCorrectRate < 50.0) 
             {
                 Debug.Log("정답률 50%이하. 실패.");
-                badEndingCanvas.SetActive(true);
-                badEndingCanvas.GetComponent<BadEndingCanvas>().StartBadEnding();
-                this.gameObject.SetActive(false);
+                StartBadEnding();
                 return;
             }
             if(questionType[questionNum] == "QC\r")
@@ -168,6 +178,14 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
+            if(suspect == 3) {
+                StartBadEnding();
+                return;
+            }
+            if(suspect == 0 && weapon == 0 && motive == 0) {
+                StartBadEnding();
+                return;
+            }
             Debug.Log("모든 질문 완료");
             goodEndingCanvas.SetActive(true);
             goodEndingCanvas.GetComponent<GoodEndingCanvas>().StartGoodEnding();
