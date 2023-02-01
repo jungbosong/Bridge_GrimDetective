@@ -15,6 +15,7 @@ public class SettingManager : MonoBehaviour
     void Awake() 
     {
         settingBtnImage = settingButton.GetComponent<Image>();
+        settingPopup.SetActive(false);
     }
     
     public void OnClickedSetting()

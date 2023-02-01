@@ -37,7 +37,7 @@ public class DecideArea : MonoBehaviour
     {
         selectedImages[0].sprite = tabContentArea.suspectSprites[mysteryPresentationMng.suspectNum];
         selectedImages[1].sprite = tabContentArea.toolSprites[mysteryPresentationMng.weaponNum];
-        selectedImages[2].sprite = tabContentArea.motiveSprites[mysteryPresentationMng.motiveNum];
+        //selectedImages[2].sprite = tabContentArea.motiveSprites[mysteryPresentationMng.motiveNum];
     }
 
     void SetSelectedNames()
@@ -46,8 +46,8 @@ public class DecideArea : MonoBehaviour
         Debug.Log("범인명: " + tabContentArea.suspectNames[mysteryPresentationMng.suspectNum]);
         selectedNames[1].text = tabContentArea.toolNames[mysteryPresentationMng.weaponNum];
         Debug.Log("흉기명: " + tabContentArea.toolNames[mysteryPresentationMng.weaponNum]);
-        selectedNames[2].text = tabContentArea.motiveNames[mysteryPresentationMng.motiveNum];
-        Debug.Log("동기명: " + tabContentArea.motiveNames[mysteryPresentationMng.motiveNum]);
+        /*selectedNames[2].text = tabContentArea.motiveNames[mysteryPresentationMng.motiveNum];
+        Debug.Log("동기명: " + tabContentArea.motiveNames[mysteryPresentationMng.motiveNum]);*/
     }
 
     /*void SetSelectedReactions()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public class ChatManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class ChatManager : MonoBehaviour
             newYellowArea.transform.SetParent(ContentObj.transform,false);
             Area = newYellowArea.GetComponent<AreaScript>();
             Area.BoxRect.sizeDelta = new Vector2(600, Area.BoxRect.sizeDelta.y);
-            Area.TextRect.GetComponent<Text>().text = text;
+            Area.TextRect.GetComponent<TextMeshProUGUI>().text = text;
             Fit(Area.BoxRect);
             }   
         else { // WhiteArea생성
@@ -27,7 +28,7 @@ public class ChatManager : MonoBehaviour
             newWhiteArea.transform.SetParent(ContentObj.transform,false);
             Area = newWhiteArea.GetComponent<AreaScript>();
             Area.BoxRect.sizeDelta = new Vector2(600, Area.BoxRect.sizeDelta.y);
-            Area.TextRect.GetComponent<Text>().text = text;
+            Area.TextRect.GetComponent<TextMeshProUGUI>().text = text;
             Fit(Area.BoxRect);       
         }
     }
